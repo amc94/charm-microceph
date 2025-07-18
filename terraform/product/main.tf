@@ -10,7 +10,7 @@ module "microceph" {
   placement         = var.microceph.placement
   revision          = var.microceph.revision
   storage           = var.microceph.storage
-  units             = var.microceph.units
+  machines          = var.microceph.machines
   model             = var.model_name
   radosgw_user      = var.radosgw_user
   s3_buckets        = var.s3_buckets

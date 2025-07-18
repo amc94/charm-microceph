@@ -14,7 +14,7 @@ resource "juju_application" "microceph" {
 
   config             = var.config
   constraints        = var.constraints
-  units              = var.units
+  machines           = toset(var.machines)
   resources          = var.resources
   storage_directives = var.storage
 }

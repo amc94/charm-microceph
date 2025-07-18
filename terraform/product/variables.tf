@@ -42,13 +42,12 @@ variable "microceph" {
     resources   = optional(map(string))
     revision    = optional(string)
     storage     = optional(map(string))
-    units       = number
+    machines    = optional(set(string))
   })
 
   default = {
     base    = "24.04"
     channel = "squid/stable"
-    units   = 3
   }
 }
 
