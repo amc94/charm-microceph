@@ -26,25 +26,27 @@ resource "null_resource" "juju_wait" {
   }
 }
 
-data "local_sensitive_file" "ssh_key" {
-  filename = var.ssh_key
-  count    = length(var.ssh_key) > 0 ? 1 : 0
-}
+resource "null_resource" "import_ssh_key" {
+  provisioner "local-exec" {
+    command = <<-EOT
+      set -euo pipefail
 
-resource "juju_ssh_key" "mykey" {
-  count   = length(var.ssh_key) > 0 ? 1 : 0
-  model   = var.model
-  payload = data.local_sensitive_file.ssh_key[0].content
+      echo ">> Importing ssh key"
+      if [ -n "${var.ssh_key_path}" ] && [ -f "${var.ssh_key_path}" ]; then
+        juju add-ssh-key "$(cat ${var.ssh_key_path})"
+      fi
+    EOT
+
+    interpreter = ["/bin/bash", "-c"]
+  }
 }
 
 resource "null_resource" "add_osds" {
-  depends_on = [null_resource.juju_wait, resource.juju_ssh_key.mykey]
+  depends_on = [null_resource.juju_wait, null_resource.import_ssh_key]
   provisioner "local-exec" {
     command = "${path.module}/add_osds.py ${var.osd_disks.path} ${var.osd_disks.loop_spec}"
   }
 }
-
-
 
 resource "null_resource" "install_s3cmd" {
   depends_on = [null_resource.add_osds]

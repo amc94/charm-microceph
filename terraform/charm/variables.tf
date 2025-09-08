@@ -100,8 +100,8 @@ variable "s3_buckets" {
   default     = []
 }
 
-variable "ssh_key" {
+variable "ssh_key_path" {
   type = string
-  description = "ssh key to import"
+  description = "path to ssh key to import"
   default = ""
 }
