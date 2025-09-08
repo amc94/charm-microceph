@@ -27,6 +27,7 @@ resource "null_resource" "juju_wait" {
 }
 
 resource "null_resource" "import_ssh_key" {
+  depends_on = [null_resource.juju_wait]
   provisioner "local-exec" {
     command = <<-EOT
       set -euo pipefail
@@ -42,7 +43,7 @@ resource "null_resource" "import_ssh_key" {
 }
 
 resource "null_resource" "add_osds" {
-  depends_on = [null_resource.juju_wait, null_resource.import_ssh_key]
+  depends_on = [null_resource.import_ssh_key]
   provisioner "local-exec" {
     command = "${path.module}/add_osds.py ${var.osd_disks.path} ${var.osd_disks.loop_spec}"
   }
