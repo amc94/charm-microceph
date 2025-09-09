@@ -41,7 +41,7 @@ def get_disks(units):
 
 
 def add_osd(unit, device_id, loop_spec):
-    command = f"juju run {unit} add-osd device-id={device_id} loop-spec={loop_spec}"
+    command = f"juju ssh {unit} -- sudo microceph disk add --wipe {device_id}"
     juju_command(command)
 
 
