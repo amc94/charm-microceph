@@ -42,7 +42,8 @@ variable "microceph" {
     resources   = optional(map(string))
     revision    = optional(string)
     storage     = optional(map(string))
-    units       = number
+    units       = optional(number, 1)
+    machines    = optional(map(string))
   })
 
   default = {

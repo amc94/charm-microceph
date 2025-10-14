@@ -15,6 +15,7 @@ module "microceph" {
   radosgw_user      = var.radosgw_user
   s3_buckets        = var.s3_buckets
   osd_disks         = var.osd_disks
+  machines          = var.microceph.machines
 }
 
 resource "null_resource" "deployment_time" {
