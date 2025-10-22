@@ -44,7 +44,7 @@ variable "model" {
 variable "machines" {
   description = "List of juju_machine resources to use for deployment"
   type        = set(string)
-  default     = {}
+  default     = []
   nullable    = true
 }
 
