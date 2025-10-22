@@ -44,7 +44,8 @@ variable "model" {
 variable "machines" {
   description = "List of juju_machine resources to use for deployment"
   type        = set(string)
-  default     = []
+  default     = {}
+  nullable    = true
 }
 
 variable "placement" {
@@ -101,7 +102,7 @@ variable "s3_buckets" {
 }
 
 variable "ssh_key_path" {
-  type = string
+  type        = string
   description = "path to ssh key to import"
-  default = ""
+  default     = ""
 }

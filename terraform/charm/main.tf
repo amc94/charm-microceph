@@ -14,7 +14,7 @@ resource "juju_application" "microceph" {
 
   config             = var.config
   constraints        = var.constraints
-  units              = var.machines == null? var.units : null
+  units              = var.machines == null ? var.units : null
   machines           = var.machines
   resources          = var.resources
   storage_directives = var.storage
