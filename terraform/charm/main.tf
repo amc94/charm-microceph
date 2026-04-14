@@ -2,7 +2,7 @@
 # See LICENSE file for licensing details.
 
 resource "juju_application" "microceph" {
-  name  = var.app_name
+  name       = var.app_name
   model_uuid = data.juju_model.model.uuid
 
   charm {

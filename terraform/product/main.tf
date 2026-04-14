@@ -11,7 +11,7 @@ module "microceph" {
   revision          = var.microceph.revision
   storage           = var.microceph.storage
   units             = var.microceph.units
-  model_uuid             = var.model_uuid
+  model_uuid        = var.model_uuid
   radosgw_user      = var.radosgw_user
   s3_buckets        = var.s3_buckets
   osd_disks         = var.osd_disks
