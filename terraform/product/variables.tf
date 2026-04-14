@@ -1,4 +1,4 @@
-variable "model_name" {
+variable "model_uuid" {
   description = "Reference to a `juju_model`."
   type        = string
 }
