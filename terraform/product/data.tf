@@ -1,3 +1,3 @@
 data "juju_model" "model" {
-  name = var.model_uuid
+  uuid = var.model_uuid
 }
