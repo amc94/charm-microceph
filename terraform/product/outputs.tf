@@ -13,7 +13,7 @@ output "provides" {
 
 output "model_info" {
   value = {
-    model_name = var.model_name
+    model_name = var.model_uuid
   }
 }
 

@@ -3,7 +3,7 @@
 
 resource "juju_application" "microceph" {
   name  = var.app_name
-  model_uuid = data.model.uuid
+  model_uuid = data.juju_model.model.uuid
 
   charm {
     name     = "microceph"
@@ -23,7 +23,7 @@ resource "juju_application" "microceph" {
 resource "null_resource" "juju_wait" {
   depends_on = [juju_application.microceph]
   provisioner "local-exec" {
-    command = "juju wait-for model ${data.model.name} --query='forEach(units, unit => unit.workload-status==\"active\")' --timeout 60m --summary; juju switch ${data.model.name}"
+    command = "juju wait-for model ${data.juju_model.model.name} --query='forEach(units, unit => unit.workload-status==\"active\")' --timeout 60m --summary; juju switch ${data.juju_model.model.name}"
   }
 }
 
@@ -62,12 +62,12 @@ resource "null_resource" "install_s3cmd" {
 }
 data "external" "s3_endpoints" {
   depends_on = [null_resource.add_osds]
-  program    = ["${path.module}/get_s3_endpoints.sh", var.app_name, data.model.name]
+  program    = ["${path.module}/get_s3_endpoints.sh", var.app_name, data.juju_model.model.name]
 }
 
 data "external" "radosgw_user" {
   depends_on = [null_resource.add_osds]
-  program    = ["bash", "${path.module}/create_radosgw_user.sh", var.radosgw_user.user_id, var.radosgw_user.display_name, data.model.name]
+  program    = ["bash", "${path.module}/create_radosgw_user.sh", var.radosgw_user.user_id, var.radosgw_user.display_name, data.juju_model.model.name]
 }
 
 
